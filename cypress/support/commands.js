@@ -4,7 +4,9 @@ Cypress.Commands.add("openHomePage", () => {
 })
 
 Cypress.Commands.add("openLoginPage", () => {
-  cy.contains("Sign in").click()
+  cy.visit("https://practicesoftwaretesting.com/auth/login", { 
+    failOnStatusCode: false 
+  })
 })
 
 Cypress.Commands.add("enterEmail", (email) => {

@@ -11,5 +11,7 @@ Given("I am on the home page", () => {
 // Navigate directly to login URL instead of clicking Sign In
 // This avoids Angular state issues after previous specs
 Given("I navigate to the login page", () => {
-  cy.visit("/auth/login", { failOnStatusCode: false })
-});
+  cy.visit("https://practicesoftwaretesting.com/auth/login", { 
+    failOnStatusCode: false 
+  })
+})

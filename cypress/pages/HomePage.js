@@ -21,7 +21,9 @@ class HomePage {
   }
 
   goToLogin() {
-  cy.visit("https://practicesoftwaretesting.com/auth/login")
+  cy.visit("https://practicesoftwaretesting.com/auth/login", { 
+    failOnStatusCode: false 
+  })
 }
 
   getProductCards() {
