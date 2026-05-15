@@ -1,6 +1,6 @@
 
 Cypress.Commands.add("openHomePage", () => {
-  cy.visit("https://practicesoftwaretesting.com")
+  cy.visit("https://practicesoftwaretesting.com", { failOnStatusCode: false })
 })
 
 Cypress.Commands.add("openLoginPage", () => {

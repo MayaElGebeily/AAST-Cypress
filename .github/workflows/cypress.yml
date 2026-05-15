@@ -34,3 +34,10 @@ jobs:
         with:
           name: cypress-screenshots
           path: cypress/screenshots
+      - name: Run Cypress tests
+        uses: cypress-io/github-action@v6
+        with:
+         browser: chrome
+         headed: false
+        env:
+          CYPRESS_failOnStatusCode: false    

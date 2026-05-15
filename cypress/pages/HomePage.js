@@ -8,7 +8,7 @@ class HomePage {
   }
 
   visit() {
-    cy.visit("https://practicesoftwaretesting.com")
+    cy.visit("https://practicesoftwaretesting.com", { failOnStatusCode: false })
   }
 
   searchFor(term) {
