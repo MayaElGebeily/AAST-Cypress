@@ -1,107 +1,68 @@
+
+import LoginPage from "../pages/LoginPage";
+import HomePage from "../pages/HomePage";
+ 
 describe("Login Test Suite", () => {
-
-  let data
-
+  let data;
+ 
   beforeEach(() => {
-
     cy.fixture("loginData").then((fixtureData) => {
-      data = fixtureData
-    })
-
-    cy.openHomePage()
-    cy.openLoginPage()
-
-  })
-
-
+      data = fixtureData;
+    });
+    HomePage.visit();
+    HomePage.goToLogin();
+  });
+ 
   it("TC01 Enter valid credentials", () => {
-
-    cy.enterEmail(data.validUser.email)
-    cy.enterPassword(data.validUser.password)
-
-    cy.clickLogin()
-    cy.url().should("include", "account")
-
-    cy.url().should("not.include", "login")
-      cy.get('[data-test="page-title"]', { timeout: 10000 })
-    .should("be.visible")
-  })
-
-
+  LoginPage.login(data.validUser.email, data.validUser.password);
+  cy.url({ timeout: 15000 }).should("include", "account");
+  cy.url().should("not.include", "login");
+  LoginPage.elements.pageTitle().should("be.visible");
+});
+ 
   it("TC02 Invalid email login attempt", () => {
-
-    cy.enterEmail(data.invalidEmail.email)
-    cy.enterPassword(data.invalidEmail.password)
-
-    cy.clickLogin()
-
-    cy.url().should("include", "login")
-    cy.get('[data-test="login-error"]', { timeout: 10000 })
-  .should('be.visible')
-  .and('contain', 'Invalid email or password')
-
-  })
-
-
+    LoginPage.login(data.invalidEmail.email, data.invalidEmail.password);
+    cy.url().should("include", "login");
+    LoginPage.getErrorMessage()
+      .should("be.visible")
+      .and("contain", "Invalid email or password");
+  });
+ 
   it("TC03 Invalid password login attempt", () => {
-
-    cy.enterEmail(data.invalidPassword.email)
-    cy.enterPassword(data.invalidPassword.password)
-
-    cy.clickLogin()
-
-    cy.url().should("include", "login")
-    cy.get('[data-test="login-error"]', { timeout: 10000 })
-  .should('be.visible')
-  .and('contain', 'Invalid email or password')
-  })
-
+    LoginPage.login(data.invalidPassword.email, data.invalidPassword.password);
+    cy.url().should("include", "login");
+    LoginPage.getErrorMessage()
+      .should("be.visible")
+      .and("contain", "Invalid email or password");
+  });
+ 
   it("TC04 Verify email field exists", () => {
-
-    cy.get("#email").should("be.visible")
-
-  })
-
-
+    LoginPage.elements.emailField().should("be.visible");
+  });
+ 
   it("TC05 Verify password field exists", () => {
-
-    cy.get("#password").should("be.visible")
-
-  })
-
-
-it("TC06 Verify login button exists", () => {
-  cy.get('[data-test="login-submit"]').should("be.visible")
-})
-
-
-  it("TC07 Verify password field type", () => {
-    cy.get("#password").should("have.attr", "type", "password")
-  })
-
-
+    LoginPage.elements.passwordField().should("be.visible");
+  });
+ 
+  it("TC06 Verify login button exists", () => {
+    LoginPage.elements.loginButton().should("be.visible");
+  });
+ 
+  it("TC07 Verify password field type is password", () => {
+    LoginPage.elements.passwordField().should("have.attr", "type", "password");
+  });
+ 
   it("TC08 Verify login page title", () => {
-
-    cy.title().should("include", "Practice Software Testing")
-
-  })
-
-
+    cy.title().should("include", "Practice Software Testing");
+  });
+ 
   it("TC09 Verify Sign in navigation", () => {
-
-    cy.visit("https://practicesoftwaretesting.com")
-
-    cy.contains("Sign in").click()
-
-    cy.url().should("include", "login")
-
-  })
-
-
+    HomePage.visit();
+    HomePage.goToLogin();
+    cy.url().should("include", "login");
+  });
+ 
   it("TC10 Verify login page loads", () => {
-
-    cy.url().should("include", "login")
-
-  })
-
-})
+    cy.url().should("include", "login");
+  });
+});
