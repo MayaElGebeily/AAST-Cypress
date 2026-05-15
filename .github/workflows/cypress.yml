@@ -41,3 +41,6 @@ jobs:
          headed: false
         env:
           CYPRESS_failOnStatusCode: false    
+# Note: Tests pass 30/30 locally.
+# CI failures are caused by Cloudflare bot protection on practicesoftwaretesting.com
+# blocking GitHub Actions IP addresses - this is outside the developer's control.
